@@ -1,27 +1,47 @@
 const fn = require('./fn');
 
-let num = 0;
+let user;
 
-beforeEach(() => {
-    num = 0;    
+// beforeEach(async () => {
+//     user = await fn.connectUserDb();
+// });
+// afterEach(() => {
+//     return fn.disconnectUserDb();
+// });
+beforeAll(async () => {
+    user = await fn.connectUserDb();
+});
+afterAll(() => {
+    return fn.disconnectUserDb();
 });
 
-test('0 + 1 = 1', () => {
-    num = fn.add(num, 1);
-    expect(num).toBe(1);
+test('이름은 Mike', () => {
+    expect(user.name).toBe('Mike');
+});
+test('나이는 30', () => {
+    expect(user.age).toBe(30);
+});
+test('성별은 male', () => {
+    expect(user.gender).toBe('male');
 });
 
-test('0 + 2 = 2', () => {
-    num = fn.add(num, 2);
-    expect(num).toBe(2);
-});
+describe('Car 관련 작업', () => {
+    let car;
 
-test('0 + 3 = 3', () => {
-    num = fn.add(num, 3);
-    expect(num).toBe(3);
-});
-
-test('0 + 4 = 4', () => {
-    num = fn.add(num, 4);
-    expect(num).toBe(4);
+    beforeAll(async () => {
+        car = await fn.connectCarDb();
+    });
+    afterAll(() => {
+        return fn.disconnectCarDb();
+    });
+    
+    test('이름은 z4', () => {
+        expect(car.name).toBe('z4');
+    });
+    test('브랜드는 bmw', () => {
+        expect(car.brand).toBe('bmw');
+    });
+    test('색상은 red', () => {
+        expect(car.color).toBe('red');
+    });
 });
