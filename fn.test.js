@@ -2,46 +2,24 @@ const fn = require('./fn');
 
 let user;
 
-// beforeEach(async () => {
-//     user = await fn.connectUserDb();
-// });
-// afterEach(() => {
-//     return fn.disconnectUserDb();
-// });
-beforeAll(async () => {
-    user = await fn.connectUserDb();
-});
-afterAll(() => {
-    return fn.disconnectUserDb();
-});
+beforeAll(() => console.log('밖 beforeAll')); // 1
+beforeEach(() => console.log('밖 beforeEach')); // 2, 6
+afterEach(() => console.log('밖 afterEach')); // 4, 10
+afterAll(() => console.log('밖 afterAll')); // 마지막 
 
-test('이름은 Mike', () => {
-    expect(user.name).toBe('Mike');
-});
-test('나이는 30', () => {
-    expect(user.age).toBe(30);
-});
-test('성별은 male', () => {
-    expect(user.gender).toBe('male');
+test('0 + 1 = 1', () => {
+    console.log('밖 test');
+    expect(fn.add(0, 1)).toBe(1); // 3
 });
 
 describe('Car 관련 작업', () => {
-    let car;
-
-    beforeAll(async () => {
-        car = await fn.connectCarDb();
-    });
-    afterAll(() => {
-        return fn.disconnectCarDb();
-    });
+    beforeAll(() => console.log(' 안 beforeAll')); // 5
+    beforeEach(() => console.log(' 안 beforeEach')); // 7
+    afterEach(() => console.log(' 안 afterEach')); // 9
+    afterAll(() => console.log(' 안 afterAll')); // 마지막 -1
     
-    test('이름은 z4', () => {
-        expect(car.name).toBe('z4');
-    });
-    test('브랜드는 bmw', () => {
-        expect(car.brand).toBe('bmw');
-    });
-    test('색상은 red', () => {
-        expect(car.color).toBe('red');
+    test('0 + 2 = 2', () => {
+        console.log('안 test');
+        expect(fn.add(0, 2)).toBe(2); // 8
     });
 });
