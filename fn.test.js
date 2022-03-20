@@ -1,123 +1,53 @@
+const { getName } = require('./fn');
 const fn = require('./fn');
 
 /**
- * toBe
+ *** callback
  **/
-// test('1 = 1',  () => {
-//     expect(1).toBe(1);
+// test('3초 뒤에 받아온 이름은 Mike', (done) => {
+//     function callback(name) {
+//         expect(name).toBe('Mike');
+//         // done();
+//     }
+//     fn.getName(callback);
+// });
+// test('3초 뒤에 받아온 이름은 Mike', (done) => {
+//     function callback(name) {
+//         try {
+//             expect(name).toBe('Mike');
+//             done();
+//         } catch (error) {
+//             done();
+//         }
+//     }
+//     fn.getName(callback);
 // });
 
 
 /**
- * toBe
- * toEqual
+ *** Promise
+ * resolves, rejects
  **/
-// test('2 + 3 = 5', () => {
-//     expect(fn.add(2, 3)).toBe(5);
-// });
-// test('2 + 3 = 5', () => {
-//     expect(fn.add(2, 3)).toEqual(5);
-// });
-// test('3 + 3 != 5', () => {
-//     expect(fn.add(3, 3)).not.toBe(5);
-// });
-
-
-/**
- * toEqual
- * toStrictEqual
- **/
-// test('객체 반환', () => {
-//     expect(fn.makeUser('Mike', 30)).toBe({
-//         name: 'Mike',
-//         age: 30
+// test('3초 뒤에 받아온 나이는 30', () => {
+//     return fn.getAge().then(age => {
+//         expect(age).toBe(30);
 //     });
 // });
-// test('객체 반환', () => {
-//     expect(fn.makeUser('Mike', 30)).toEqual({
-//         name: 'Mike',
-//         age: 30
-//     });
+// test('3초 뒤에 받아온 나이는 30', () => {
+//     return expect(fn.getAge()).resolves.toBe(30);
 // });
-// test('객체 반환', () => {
-//     expect(fn.makeUser('Mike', 30)).toStrictEqual({
-//         name: 'Mike',
-//         age: 30
-//     });
+// test('3초 뒤에 에러 발생', () => {
+//     return expect(fn.getAge()).rejects.toMatch('서버 에러..');
 // });
 
 
 /**
- * toBeNull
- * toBeUndefined
- * toBeDefined
+ * async, await
  **/
-// test('null = null',  () => {
-//     expect(null).toBeNull();
+// test('3초 뒤에 받아온 나이는 30', async () => {
+//     const age = await fn.getAge();
+//     expect(age).toBe(30);
 // });
-
-
-/**
- * toBeTruthy
- * toBeFalsy
- **/
-// test('true = true',  () => {
-//     expect(fn.add(1, -1)).toBeTruthy();
-// });
-
-
-/**
- * toBeGreaterThan
- * toBeGreaterThanOrEqual
- * toBeLessThan
- * toBeLessThanOrEqual
- **/
-// test('ID는 10자 이하여야합니다.',  () => {
-//     const id = 'THE_BLACK_ORDER'
-//     expect(id.length).toBeLessThanOrEqual(10);
-// });
-// test('비밀번호 4자리',  () => {
-//     const pwd = '1234'
-//     expect(pwd.length).toBe(4);
-// });
-
-
-/**
- * toBeCloseTo
- **/
-// test('0.1 + 0.2 = 0.3',  () => {
-//     expect(fn.add(0.1, 0.2)).toBe(0.3);
-// });
-// test('0.1 + 0.2 = 0.3',  () => {
-//     expect(fn.add(0.1, 0.2)).toBeCloseTo(0.3);
-// });
-
-
-/**
- * toMatch
- **/
-// test('Hello world 에 h 라는 글자가 있는가', () => {
-//     expect('Hello world').toMatch(/h/i);
-// });
-
-
-/**
- * toContain
- **/
-// test('유저리스트 에 Mike 라는 글자가 있는가', () => {
-//     const user = 'Mike';
-//     const userList = ['Mike', 'Tom'];
-//     expect(userList).toContain(user);
-// });
-
-
-
-/**
- * toThrow
- **/
-test('Error 발생', () => {
-    expect(() => fn.throwErr()).toThrow();
-});
-test('Error 발생', () => {
-    expect(() => fn.throwErr()).toThrow('xx');
+test('3초 뒤에 받아온 나이는 30', async () => {
+    await expect(fn.getAge()).resolves.toBe(30);
 });
