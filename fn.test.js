@@ -1,17 +1,15 @@
 const mockFn = jest.fn();
 
 mockFn
-.mockReturnValueOnce(10)
-.mockReturnValueOnce(20)
-.mockReturnValueOnce(30)
-.mockReturnValue(40)
+.mockReturnValueOnce(true)
+.mockReturnValueOnce(false)
+.mockReturnValueOnce(true)
+.mockReturnValueOnce(false)
+.mockReturnValue(true)
 
-mockFn();
-mockFn();
-mockFn();
-mockFn();
+const result = [1, 2, 3, 4, 5].filter(num => mockFn(num));
 
-test('함수 호출은 3번 됩니다.', () => {
+test('홀수는 1, 3, 5', () => {
     console.log(mockFn.mock.results);
-    expect(mockFn.mock.calls.length).toBe(4);
+    expect(result).toStrictEqual([1, 3, 5]);
 });
