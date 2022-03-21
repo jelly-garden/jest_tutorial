@@ -1,23 +1,12 @@
-const fn = require('./fn');
+const mockFn = jest.fn();
 
-let num = 0;
+mockFn();
+mockFn(1);
 
-test('0 + 1 = 1', () => {
-    expect(fn.add(num, 1)).toBe(1);
+test('함수는 2번 호출됩니다.', () => {
+    expect(mockFn.mock.calls.length).toBe(2);
 });
-test('0 + 2 = 2', () => {
-    expect(fn.add(num, 2)).toBe(2);
+
+test('2번째로 호출된 함수에 전달된 첫번째 인수는 1입니다.', () => {
+    expect(mockFn.mock.calls[1][0]).toBe(1);
 });
-test('0 + 3 = 3', () => {
-    expect(fn.add(num, 3)).toBe(3);
-});
-test.skip('0 + 4 = 4', () => {
-    expect(fn.add(num, 4)).toBe(4);
-    num = 10;
-});
-test('0 + 5 = 5', () => {
-    expect(fn.add(num, 5)).toBe(5);
-});
-// test.only('0 + 5 = 5', () => {
-//     expect(fn.add(num, 5)).toBe(5);
-// });
