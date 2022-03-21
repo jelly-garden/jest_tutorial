@@ -1,10 +1,10 @@
-const mockFn = jest.fn();
+const fn = require('./fn');
 
-mockFn
-.mockResolvedValue({ name: 'Mike' })
+jest.mock('./fn');
 
-test('받아온 이름은 Mike', () => {
-    mockFn().then(res => {
-        expect(res.name).toBe('Mike');
-    });
+fn.createUser.mockReturnValue({ name: 'Mike' });
+
+test('유저를 만든다', () => {
+    const user = fn.createUser('Mike');
+    expect(user.name).toBe('Mike');
 });
